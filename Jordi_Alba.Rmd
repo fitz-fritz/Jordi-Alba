@@ -1,0 +1,415 @@
+---
+title: "Event-Tracker Jordi Alba"
+runtime: shiny
+output:
+  flexdashboard::flex_dashboard:
+    orientation: column
+    vertical_layout: fill
+    theme: simplex
+    social:
+    - twitter
+    - linkedin
+    graphics: yes
+    fig_mobile: FALSE
+
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(ggplot2)
+library(dplyr)
+library(ggthemes)
+library(ggrepel)
+library(scales)
+library(gghighlight)
+library(shiny)
+library(ggsoccer)
+library(ggnewscale)
+library(kableExtra)
+```
+
+```{r, include = FALSE}
+
+load("jordi-alba-clean2.RData")
+
+
+
+```
+
+
+
+Monitoring 
+=======================================================================
+
+
+Choice {.sidebar}
+-----------------------------------------------------------------------
+
+<p>This dashboard provides an overview of Jordi Albas game events during his appearances for Barcelona in the Spanish First Divison (La Liga) until 2018/2019. Below you can select a Match-Id. The Monitoring dashboard will give you the relevant details for the respective Match-ID. Only matches with involvement of Jordi Alba are reconsidered. </p>
+
+
+```{r}
+
+tags$style(type='text/css', ".selectize-input {font-size: 9px; line-height: 20px,}
+.selectize-dropdown {font-size: 9px; line-height: 20px}
+body{font-size: 9px;line-height: 20px}
+.chart-title{font-size: 11px}")
+
+
+
+
+selectInput("match_id", label = h3("Match-ID", style = "font-size:12px"), 
+   choices = df.jordievents$match_id, 
+    selected = " ")
+
+ #selectizeInput(
+  #      'match_id', 'match_id',
+   #     choices = df.jordievents$match_id
+    #  )
+
+div(style = "margin-top:-10px")
+```
+
+
+
+
+```{r, echo =FALSE}
+
+tags$style(type='text/css', ".selectize-input {font-size: 9px; line-height: 20px,}
+.selectize-dropdown {font-size: 9px; line-height: 20px}
+body{font-size: 12px;line-height: 20px}
+.chart-title{font-size: 11px}")
+
+
+renderText({
+  df.jordievents <- df.jordievents %>%
+  filter(match_id == (input$match_id))
+
+season <- unique(df.jordievents$season.season_name)
+
+rt <- print(paste0("Season: ", season))
+
+rt
+})
+
+```
+
+```{r, echo =FALSE}
+
+tags$style(type='text/css', ".selectize-input {font-size: 9px; line-height: 20px,}
+.selectize-dropdown {font-size: 9px; line-height: 20px}
+body{font-size: 12px;line-height: 20px}
+.chart-title{font-size: 11px}")
+
+
+renderText({
+  df.jordievents <- df.jordievents %>%
+  filter(match_id == (input$match_id))
+
+matchweek <- unique(df.jordievents$match_week)
+
+rz <- print(paste0("Matchweek: ", matchweek))
+
+rz
+})
+
+```
+
+
+```{r, echo =FALSE}
+
+tags$style(type='text/css', ".selectize-input {font-size: 9px; line-height: 20px,}
+.selectize-dropdown {font-size: 9px; line-height: 20px}
+body{font-size: 12px;line-height: 20px; color: black;}
+.chart-title{font-size: 11px}")
+
+
+renderText({
+  df.jordievents <- df.jordievents %>%
+  filter(match_id == (input$match_id))
+
+Hometeam <- unique(df.jordievents$home_team.home_team_name)
+
+r1 <- print(paste0("Home Team: ", Hometeam))
+
+r1
+})
+
+```
+
+```{r, echo =FALSE}
+
+tags$style(type='text/css', ".selectize-input {font-size: 9px; line-height: 20px,}
+.selectize-dropdown {font-size: 9px; line-height: 20px}
+body{font-size: 12px;line-height: 20px}
+.chart-title{font-size: 11px}")
+
+
+renderText({
+  df.jordievents <- df.jordievents %>%
+  filter(match_id == (input$match_id))
+
+Homegoals <- unique(df.jordievents$home_score)
+
+r2 <- print(paste0("Home Score: ", Homegoals))
+
+r2
+})
+
+```
+
+```{r, echo =FALSE}
+
+tags$style(type='text/css', ".selectize-input {font-size: 9px; line-height: 20px,}
+.selectize-dropdown {font-size: 9px; line-height: 20px}
+body{font-size: 12px;line-height: 20px}
+.chart-title{font-size: 11px}")
+
+
+renderText({
+  df.jordievents <- df.jordievents %>%
+  filter(match_id == (input$match_id))
+
+Awayteam <- unique(df.jordievents$away_team.away_team_name)
+
+a1 <- print(paste0("Away Team: ", Awayteam))
+
+a1
+})
+
+```
+
+```{r, echo =FALSE}
+
+tags$style(type='text/css', ".selectize-input {font-size: 9px; line-height: 20px,}
+.selectize-dropdown {font-size: 9px; line-height: 20px}
+body{font-size: 12px;line-height: 20px}
+.chart-title{font-size: 11px}")
+
+
+renderText({
+  df.jordievents <- df.jordievents %>%
+  filter(match_id == (input$match_id))
+
+Awaygoals <- unique(df.jordievents$away_score)
+
+a2 <- print(paste0("Away Score: ", Awaygoals))
+
+a2
+})
+
+```
+<br>
+
+***
+
+The data is freely available by Statsbomb
+
+```{r,echo = FALSE, out.width = "100px"}
+
+img2 <- "SB - Core Wordmark - Colour positive.jpg"
+knitr::include_graphics(img2)
+
+```
+
+<br>
+
+***
+
+Author
+
+```{r, echo= FALSE ,out.width = '60%', fig.align="center", out.extra='style="border-radius: 100px;margin-right: 15%;margin-left: 15%;"'}
+
+img1 <- "Testbild.png"
+knitr::include_graphics(img1)
+ 
+```
+
+***
+
+Pascal Frick,            
+M. Sc. Economics and Business Administration,<br>
+Senior Consultant <br>
+<a href="https://twitter.com/fitzfritzdata" class="fa fa-twitter" style="color: grey;"></a>
+<a href="https://linkedin.com/in/pascalfrick" class="fa fa-linkedin" style="color: grey;"></a>
+<a href="https://github.com/fitz-fritz" class="fa fa-github" style="color: grey;"></a>
+
+
+
+
+Column{.tabset}
+------------------------------------- 
+
+
+
+### Event Heat Map Comparision
+
+```{r,  out.width="100%"}
+renderPlot({
+
+
+df.jordievents <- df.jordievents %>%
+  filter(match_id == (input$match_id))
+
+df.rightbackevents <- df.rightbackevents %>%
+  filter(match_id == (input$match_id))
+
+
+
+p.comparison <- pitch +
+   geom_density_2d_filled(data = df.jordievents, aes(x = Lokation, y = Lokation.2 , fill = ..level..,), alpha = .8, 
+                          contour_var = "ndensity", breaks = seq(0.1, 1.0, length.out = 10)) +
+   scale_x_continuous(limits = c(0, 120)) +
+   scale_y_continuous(limits = c(0, 80)) +
+   scale_fill_manual(values = c(palette), aesthetics = c("fill")) + 
+   scale_y_reverse () +
+   new_scale_fill() +
+   geom_density_2d_filled(data = df.rightbackevents, aes(x = Lokation, y = Lokation.2 , fill = ..level..,), alpha = .8, contour_var = "ndensity", breaks = seq(0.1, 1.0, length.out = 10)) +
+   scale_fill_viridis_d(option ="D", aesthetics = c("fill"), direction = -1) +
+   annotate(
+    geom = "curve", x = 25, y = 25, xend = 60, yend = 10, 
+    curvature = 0.075, arrow = arrow(length = unit(2, "mm"))) +
+  annotate(geom = "text", x = 20, y = 27, label = "Left Back (Jordi Alba)", hjust = "left") +
+   theme(legend.position="none") +
+  annotate(
+    geom = "curve", x = 25, y = 47, xend = 60, yend = 60, 
+    curvature = -0.075, arrow = arrow(length = unit(2, "mm"))) +
+  annotate(geom = "text", x = 20, y = 45, label = "Right Back (Barcelona)", hjust = "left") +
+   theme(legend.position="none") +
+   theme(plot.title =element_text(color = "black")) +
+   labs(title="Event Heat Map Comparison",
+        subtitle = "Comparison of Jordi Albas Event as Left Back and \nBarcelonas matching Right Back during the particular game",
+        caption = "Events include Offensive and Defensive Actions caught on Camera")
+p.comparison
+})
+
+```
+
+### Event Mapping
+
+```{r,  out.width="100%"}
+renderPlot({
+
+df.jordievents <- df.jordievents %>%
+  filter(match_id == (input$match_id))
+
+df.rightbackevents <- df.rightbackevents %>%
+  filter(match_id == (input$match_id))
+
+
+z <- pitch +
+      geom_point(data = df.jordievents, aes(x = Lokation, y = Lokation.2, colour = factor(Do)), alpha = 0.4)+
+         scale_x_continuous(limits = c(0, 120)) +
+           scale_y_continuous(limits = c(0, 80)) +
+             scale_fill_manual(values = c(palette), aesthetics = c("fill")) + 
+               scale_y_reverse() +
+                 theme(legend.position="none") +
+                   theme(plot.title =element_text(color = "black")) +
+                     labs(title="Events clustered by Action",
+                        subtitle = "Events of Jordi Alba clustered by Action \nduring a particular game",
+                          caption = "Events include Offensive and Defensive Actions caught on Camera") +
+                            facet_wrap(~Do)
+
+z
+})
+```
+
+### Event Frequencies
+
+```{r,  out.width="100%"}
+renderTable({
+  
+df.jordievents <- df.jordievents %>%
+  filter(match_id == (input$match_id))  
+  
+  
+frequ <- df.jordievents %>%
+   group_by(Do) %>%
+   summarise(n = n()) %>%
+   mutate(Freq = percent(as.numeric(n/sum(n))))  %>%
+    arrange(desc(n))
+
+colnames(frequ)<- c("Actions of Jordi Alba","Absolute Frequency","Relative Frequency")
+
+
+
+frequ
+
+})
+```
+
+
+Column{.tabset}
+-------------------------------------
+### Passing Target Zones
+
+
+```{r}
+renderPlot({
+  
+df.forward.pass <- df.pass %>%
+  filter (X.Pass < X.Receive)  %>%
+    filter(match_id == (input$match_id))
+
+f <- pitch +
+geom_density_2d_filled(data = df.forward.pass, aes(x = X.Receive, y = Y.Receive , fill = ..level..,), alpha = .8, 
+                       contour_var = "ndensity", breaks = seq(0.1, 1.0, length.out = 10)) +
+  geom_point(data= df.forward.pass, aes(x = X.Receive, y = Y.Receive, colour = factor(Pass.Type))) +
+    scale_x_continuous(limits = c(0, 120)) +
+      scale_y_continuous(limits = c(0, 80)) +
+        scale_y_reverse() +
+          scale_fill_manual(values = c(palette), aesthetics = c("fill")) + 
+            theme(legend.position="none") +
+              theme(plot.title =element_text(color = "black")) +
+                labs(title="Heat Map of Passing Target Zones",
+                  subtitle = "Heat Map of Jordi Albas Passing Target Zones",
+                    caption = "Only Forward Passes are considered")
+
+f
+})
+```
+
+
+
+### Passing Targets
+
+```{r}
+renderPlot({
+df.pass <- df.pass %>%
+  filter(match_id == (input$match_id))
+
+t <- pitch  + geom_segment(data=df.pass, aes(x=X.Pass,xend=X.Receive,
+                                       y=Y.Pass,yend=Y.Receive), arrow=arrow(length = unit(0.03, "npc"))) + scale_y_reverse() +
+              theme(legend.position="none") +
+              theme(plot.title =element_text(color = "black")) +
+                labs(title="Passing Tendencies of Jordi Alba",
+                  subtitle = "Passing Tendencies of Jordi Alba grouped by Receiver" ,
+                    caption = "All Passing Events are considered") +
+  facet_wrap(~ Receiver)
+
+t
+})
+```
+
+
+### Passing Type 
+
+```{r}
+renderPlot({
+df.pass <- df.pass %>%
+  filter(match_id == (input$match_id))
+
+q <- pitch  + geom_segment(data=df.pass, aes(x=X.Pass,xend=X.Receive,
+                                       y=Y.Pass,yend=Y.Receive),arrow=arrow(length = unit(0.03, "npc"))) + scale_y_reverse() +
+              theme(legend.position="none") +
+              theme(plot.title =element_text(color = "black")) +
+                labs(title="Passing Tendencies of Jordi Alba",
+                  subtitle = "Passing Tendencies of Jordi Alba grouped by Passing Type" ,
+                    caption = "All Passing Events are considered") +
+  facet_wrap(~ Pass.Type)
+
+plot(q)
+})
+```
+
+

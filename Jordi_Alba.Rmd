@@ -30,7 +30,7 @@ library(kableExtra)
 
 ```{r, include = FALSE}
 
-load("jordi-alba-clean2.RData")
+load("jordi-alba-new.RData")
 
 
 
@@ -38,7 +38,7 @@ load("jordi-alba-clean2.RData")
 
 
 
-Monitoring 
+Game Event Monitoring 
 =======================================================================
 
 
@@ -227,9 +227,7 @@ knitr::include_graphics(img1)
 
 ***
 
-Pascal Frick,            
-M. Sc. Economics and Business Administration,<br>
-Senior Consultant <br>
+FitzFritzData,           
 <a href="https://twitter.com/fitzfritzdata" class="fa fa-twitter" style="color: grey;"></a>
 <a href="https://linkedin.com/in/pascalfrick" class="fa fa-linkedin" style="color: grey;"></a>
 <a href="https://github.com/fitz-fritz" class="fa fa-github" style="color: grey;"></a>
@@ -337,6 +335,203 @@ frequ
 
 })
 ```
+
+
+Pass Monitoring
+=======================================================================
+
+
+Choice {.sidebar}
+-----------------------------------------------------------------------
+
+<p>This dashboard provides an overview of Jordi Albas game events during his appearances for Barcelona in the Spanish First Divison (La Liga) until 2018/2019. Below you can select a Match-Id. The Monitoring dashboard will give you the relevant details for the respective Match-ID. Only matches with involvement of Jordi Alba are reconsidered. </p>
+
+
+```{r}
+
+tags$style(type='text/css', ".selectize-input {font-size: 9px; line-height: 20px,}
+.selectize-dropdown {font-size: 9px; line-height: 20px}
+body{font-size: 9px;line-height: 20px}
+.chart-title{font-size: 11px}")
+
+
+
+
+selectInput("match_id", label = h3("Match-ID", style = "font-size:12px"), 
+   choices = df.jordievents$match_id, 
+    selected = " ")
+
+ #selectizeInput(
+  #      'match_id', 'match_id',
+   #     choices = df.jordievents$match_id
+    #  )
+
+div(style = "margin-top:-10px")
+```
+
+
+
+
+```{r, echo =FALSE}
+
+tags$style(type='text/css', ".selectize-input {font-size: 9px; line-height: 20px,}
+.selectize-dropdown {font-size: 9px; line-height: 20px}
+body{font-size: 12px;line-height: 20px}
+.chart-title{font-size: 11px}")
+
+
+renderText({
+  df.jordievents <- df.jordievents %>%
+  filter(match_id == (input$match_id))
+
+season <- unique(df.jordievents$season.season_name)
+
+rt <- print(paste0("Season: ", season))
+
+rt
+})
+
+```
+
+```{r, echo =FALSE}
+
+tags$style(type='text/css', ".selectize-input {font-size: 9px; line-height: 20px,}
+.selectize-dropdown {font-size: 9px; line-height: 20px}
+body{font-size: 12px;line-height: 20px}
+.chart-title{font-size: 11px}")
+
+
+renderText({
+  df.jordievents <- df.jordievents %>%
+  filter(match_id == (input$match_id))
+
+matchweek <- unique(df.jordievents$match_week)
+
+rz <- print(paste0("Matchweek: ", matchweek))
+
+rz
+})
+
+```
+
+
+```{r, echo =FALSE}
+
+tags$style(type='text/css', ".selectize-input {font-size: 9px; line-height: 20px,}
+.selectize-dropdown {font-size: 9px; line-height: 20px}
+body{font-size: 12px;line-height: 20px; color: black;}
+.chart-title{font-size: 11px}")
+
+
+renderText({
+  df.jordievents <- df.jordievents %>%
+  filter(match_id == (input$match_id))
+
+Hometeam <- unique(df.jordievents$home_team.home_team_name)
+
+r1 <- print(paste0("Home Team: ", Hometeam))
+
+r1
+})
+
+```
+
+```{r, echo =FALSE}
+
+tags$style(type='text/css', ".selectize-input {font-size: 9px; line-height: 20px,}
+.selectize-dropdown {font-size: 9px; line-height: 20px}
+body{font-size: 12px;line-height: 20px}
+.chart-title{font-size: 11px}")
+
+
+renderText({
+  df.jordievents <- df.jordievents %>%
+  filter(match_id == (input$match_id))
+
+Homegoals <- unique(df.jordievents$home_score)
+
+r2 <- print(paste0("Home Score: ", Homegoals))
+
+r2
+})
+
+```
+
+```{r, echo =FALSE}
+
+tags$style(type='text/css', ".selectize-input {font-size: 9px; line-height: 20px,}
+.selectize-dropdown {font-size: 9px; line-height: 20px}
+body{font-size: 12px;line-height: 20px}
+.chart-title{font-size: 11px}")
+
+
+renderText({
+  df.jordievents <- df.jordievents %>%
+  filter(match_id == (input$match_id))
+
+Awayteam <- unique(df.jordievents$away_team.away_team_name)
+
+a1 <- print(paste0("Away Team: ", Awayteam))
+
+a1
+})
+
+```
+
+```{r, echo =FALSE}
+
+tags$style(type='text/css', ".selectize-input {font-size: 9px; line-height: 20px,}
+.selectize-dropdown {font-size: 9px; line-height: 20px}
+body{font-size: 12px;line-height: 20px}
+.chart-title{font-size: 11px}")
+
+
+renderText({
+  df.jordievents <- df.jordievents %>%
+  filter(match_id == (input$match_id))
+
+Awaygoals <- unique(df.jordievents$away_score)
+
+a2 <- print(paste0("Away Score: ", Awaygoals))
+
+a2
+})
+
+```
+<br>
+
+***
+
+The data is freely available by Statsbomb
+
+```{r,echo = FALSE, out.width = "100px"}
+
+img2 <- "SB - Core Wordmark - Colour positive.jpg"
+knitr::include_graphics(img2)
+
+```
+
+<br>
+
+***
+
+Author
+
+```{r, echo= FALSE ,out.width = '60%', fig.align="center", out.extra='style="border-radius: 100px;margin-right: 15%;margin-left: 15%;"'}
+
+img1 <- "Testbild.png"
+knitr::include_graphics(img1)
+ 
+```
+
+***
+
+FitzFritzData,
+<a href="https://twitter.com/fitzfritzdata" class="fa fa-twitter" style="color: grey;"></a>
+<a href="https://linkedin.com/in/pascalfrick" class="fa fa-linkedin" style="color: grey;"></a>
+<a href="https://github.com/fitz-fritz" class="fa fa-github" style="color: grey;"></a>
+
+
 
 
 Column{.tabset}

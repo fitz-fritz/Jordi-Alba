@@ -6,12 +6,12 @@ install.packages("rjson")
 library(rjson)
 library(data.table)
 
-competitions <- fromJSON(file="D:\\Users\\green\\Downloads\\open-data-master\\data\\competitions.json")
+competitions <- fromJSON(file="xxx.json")
 
 competitions.df <- data.frame(do.call(rbind,competitions),stringsAsFactors = FALSE)
 
 
-match.files <- list.files(path="D:\\Users\\green\\Downloads\\open-data-master\\data\\matches",
+match.files <- list.files(path="xxxx",
                           full.names = TRUE,recursive = TRUE)
 
 
@@ -43,7 +43,7 @@ all.matches.clean$away_score <- as.numeric(all.matches.clean$away_score)
 ##### Data-Set 1 (Jordi Alba - Left Back)
 
 ####Obtain Events JOrdi####
-event.files <- list.files(path="D:\\Users\\green\\Downloads\\open-data-master\\data\\events",
+event.files <- list.files(path="xxxx",
                           full.names = TRUE,recursive = TRUE)
 
 event.list <- list()
@@ -228,7 +228,7 @@ p.comparison <- pitch +
 
 ########## Passes
 
-event.files <- list.files(path="C:\\Users\\green\\Downloads\\open-data-master\\data\\events",
+event.files <- list.files(path="xxxx",
                           full.names = TRUE,recursive = TRUE)
 for(i in 1:length(event.files)){
   event.temp <- fromJSON(file=event.files[i])

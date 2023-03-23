@@ -5,9 +5,9 @@ account: fitzfritzdata
 server: shinyapps.io
 hostUrl: https://api.shinyapps.io/v1
 appId: 7989087
-bundleId: 6707637
+bundleId: 6707689
 url: https://fitzfritzdata.shinyapps.io/Jordi_Alba/
-when: 1673102484.82445
-lastSyncTime: 1673102484.82445
+when: 1673103700.53643
+lastSyncTime: 1673103700.53643
 asMultiple: FALSE
 asStatic: FALSE

@@ -234,7 +234,6 @@ knitr::include_graphics(img1)
 
 FitzFritzData,           
 <a href="https://twitter.com/fitzfritzdata" class="fa fa-twitter" style="color: grey;"></a>
-<a href="https://linkedin.com/in/pascalfrick" class="fa fa-linkedin" style="color: grey;"></a>
 <a href="https://github.com/fitz-fritz" class="fa fa-github" style="color: grey;"></a>
 
 
